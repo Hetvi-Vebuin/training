@@ -77,16 +77,16 @@ select *, row_number() over () rowcnt from worker
 select * from num where mod(rowcnt,2)!=1;
 
 -- Q-3. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘h’ and contains six alphabets.
-select * from worker where FIRST_NAME like '_____h';
+select * from worker where FIRST_NAME like '_____h' and length(first_name)=6;
 
 -- Q-4. Write an SQL query to fetch the count of employees working in the department ‘Admin’.
-select department, count(department) Count from worker where department='Admin';
+select count(department) Count from worker where department='Admin';
 
 -- Q-5. Write an SQL query to print details of the Workers whose SALARY lies between 100000 and 500000.
 select * from worker where salary between 100000 and 500000;
 
 -- Q-6. Write an SQL query to print details of the Workers who have joined in Feb’2014.
-select * from worker where month(JOINING_DATE)=2 and year(JOINING_DATE);
+select * from worker where month(JOINING_DATE)=2 and year(JOINING_DATE)=2014;
 
 -- Q-7. Write an SQL query to fetch “FIRST_NAME” from Worker table in upper case.
 select upper(FIRST_NAME) first_name from worker;
@@ -126,6 +126,7 @@ select current_timestamp();
 -- Q-18. Write an SQL query to show the second highest salary from a table.
 select distinct(salary) from worker order by salary desc limit 1 OFFSET 1;
 select distinct(salary) from worker order by salary desc limit 1,1;
+select distinct(salary) from worker order by salary desc;
 
 -- Q-19. Write an SQL query to show one row twice in results from a table.
 select w.*
