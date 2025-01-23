@@ -1,6 +1,5 @@
 select * from employees;
 select * from departments;
-use task_1;
 
 -- TASK ======== 1
 
