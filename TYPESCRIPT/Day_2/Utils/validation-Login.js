@@ -1,22 +1,25 @@
-"use strict";
 var _a;
 (_a = document
     .querySelector("form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", function (event) {
+    var _a, _b;
     event.preventDefault();
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const email = (emailInput === null || emailInput === void 0 ? void 0 : emailInput.value) || "";
-    const pass = (passwordInput === null || passwordInput === void 0 ? void 0 : passwordInput.value) || "";
-    // Both email and password should be entered
+    // Get references to the input elements
+    var emailInput = document.getElementById("email");
+    var passwordInput = document.getElementById("password");
+    // Extract values from the inputs
+    var email = (_a = emailInput === null || emailInput === void 0 ? void 0 : emailInput.value) !== null && _a !== void 0 ? _a : "";
+    var pass = (_b = passwordInput === null || passwordInput === void 0 ? void 0 : passwordInput.value) !== null && _b !== void 0 ? _b : "";
+    // Both email and password should not be empty
     if (!email || !pass) {
         alert("Please enter Email and Password.");
         return;
     }
     // Retrieve users from localStorage
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    var users = JSON.parse(localStorage.getItem("users") || "[]");
     // Find user in the list
-    let user;
-    for (const u of users) {
+    var user;
+    for (var _i = 0, users_1 = users; _i < users_1.length; _i++) {
+        var u = users_1[_i];
         if (u.email === email) {
             user = u;
             break;

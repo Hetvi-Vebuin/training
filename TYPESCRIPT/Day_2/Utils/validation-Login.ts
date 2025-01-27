@@ -3,6 +3,13 @@ document
   ?.addEventListener("submit", function (event: Event): void {
     event.preventDefault();
 
+    // Define the interface for User
+    interface User {
+      email: string;
+      pass: string;
+    }
+
+    // Get references to the input elements
     const emailInput = document.getElementById(
       "email"
     ) as HTMLInputElement | null;
@@ -10,22 +17,21 @@ document
       "password"
     ) as HTMLInputElement | null;
 
-    const email = emailInput?.value || "";
-    const pass = passwordInput?.value || "";
+    // Extract values from the inputs
+    const email = emailInput?.value ?? "";
+    const pass = passwordInput?.value ?? "";
 
-    // Both email and password should be entered
+    // Both email and password should not be empty
     if (!email || !pass) {
       alert("Please enter Email and Password.");
       return;
     }
 
     // Retrieve users from localStorage
-    const users: { email: string; pass: string }[] = JSON.parse(
-      localStorage.getItem("users") || "[]"
-    );
+    const users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
 
     // Find user in the list
-    let user: { email: string; pass: string } | undefined;
+    let user: User | undefined;
 
     for (const u of users) {
       if (u.email === email) {
