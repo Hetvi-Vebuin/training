@@ -2,23 +2,27 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AuthRepoPort } from "../../port/repositories/auth/auth_repo.port";
 import { user } from "../../../domain/models/user";
+import { EntityManager } from "typeorm";
 
-export const loginUsecase = async (
-  username: string,
+export const loginUseCase = async (
+  email: string,
   password: string,
-  authRepo: AuthRepoPort
+  authRepo: AuthRepoPort,
+  t: EntityManager
 ): Promise<{}> => {
 
-  const data = await authRepo.loginDetail(username);
-  console.log(data[0]);
+  const data = await authRepo.loginDetail(email, t);
+  if(!data){
+    throw new Error("Email not found");
+  }
   
-  const isvalid = await bcrypt.compare(password, data[0].password);
+  const isValid = await bcrypt.compare(password, data.password);
 
-  if (!isvalid) {
+  if (!isValid) {
     throw new Error("invalid password");
   }
   const token = jwt.sign(
-    { id: data[0].id, role: data[0].role },
+    { id: data.id, role: data.role },
     process.env.JWT_SECRET || "EMP0375",
     {
       expiresIn: "1h",
