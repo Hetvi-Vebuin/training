@@ -24,9 +24,8 @@
         "required": ["email", "username", "password", "role"],
         "properties": {
           "email": {
-            "type": "email",
-            "minLength": 3,
-            "maxLength": 30,
+            "type": "string",
+            "format": "email",
             "example": "john@gmail.com"
           },
           "username": {
@@ -47,33 +46,12 @@
           }
         }
       },
-      "UpdateRequest": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "example": 1
-          },
-          "email": {
-            "type": "string",
-            "example": "john_updated@gmail.com"
-          },
-          "username": {
-            "type": "string",
-            "example": "john_updated"
-          },
-          "password": {
-            "type": "string",
-            "example": "newSecurePass123"
-          }
-        }
-      },
-      "SuccessResponse": {
+      "RegisterSuccessResponse": {
         "type": "object",
         "properties": {
           "message": {
             "type": "string",
-            "example": "Operation successful"
+            "example": "User registered successfully"
           }
         }
       },
@@ -91,52 +69,43 @@
           }
         }
       },
-      "RegisterSuccessResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "example": "User registered successfully"
-          }
-        }
-      },
       "LoginSuccessResponse": {
         "type": "object",
         "properties": {
-          "token": {
-            "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          "message": { "type": "string", "example": "Login successful" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              }
+            }
           }
         }
       },
       "UserDetailsResponse": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "example": 1
-          },
-          "email": {
-            "type": "email",
-            "example": "john@gmail.com"
-          },
-          "username": {
+          "message": {
             "type": "string",
-            "example": "john"
+            "example": "User details retrieved successfully"
           },
-          "role": {
-            "type": "string",
-            "example": "user"
+          "userData": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "example": 1 },
+              "email": { "type": "string", "example": "john@gmail.com" },
+              "username": { "type": "string", "example": "john" },
+              "role": { "type": "string", "example": "user" }
+            }
           }
         }
       },
       "ErrorResponse": {
         "type": "object",
         "properties": {
-          "error": {
-            "type": "string",
-            "example": "Invalid credentials"
-          }
+          "message": { "type": "string", "example": "Invalid credentials" }
         }
       }
     }
@@ -146,15 +115,13 @@
     "/auth/register": {
       "post": {
         "summary": "Register a new user",
-        "description": "Registers a new user with a email, username, password, and role (admin or user).",
+        "description": "Registers a new user with email, username, password, and role (admin or user).",
         "tags": ["Authentication"],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/RegisterRequest" }
             }
           }
         },
@@ -169,13 +136,11 @@
               }
             }
           },
-          "400": {
-            "description": "Validation error",
+          "409": {
+            "description": "Email is already taken",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
@@ -191,9 +156,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/LoginRequest" }
             }
           }
         },
@@ -212,9 +175,7 @@
             "description": "Invalid credentials",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
@@ -224,42 +185,23 @@
     "/users/me": {
       "get": {
         "summary": "Get user details",
-        "description": "Fetch the details of the currently authenticated user. If isAdmin=true and the user is an admin, returns all user details. If isAdmin=true and the user is a normal user, returns only their details. If isAdmin is false or not provided, returns only the user's details from the token.",
+        "description": "Fetches authenticated user's details.",
         "tags": ["User Management"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "isAdmin",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean"
-            },
-            "description": "If true, admin users get all users' data. If true and the user is not an admin, they get only their own data. If false or not provided, the user gets only their own data."
-          }
-        ],
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "User details retrieved successfully",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDetailsResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/UserDetailsResponse" }
               }
             }
           },
           "403": {
-            "description": "Forbidden – Authentication required",
+            "description": "Authentication required",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
@@ -287,77 +229,101 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessResponse"
+                },
+                "example": {
+                  "message": "User updated successfully",
+                  "data": {
+                    "id": 1,
+                    "email": "john_updated@gmail.com",
+                    "username": "john_updated",
+                    "role": "user"
+                  }
                 }
               }
             }
           },
-          "400": {
-            "description": "Validation error",
+          "500": {
+            "description": "Internal Server Error - Unexpected failure",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "An unexpected error occurred"
                 }
               }
             }
           }
         }
-      }
-    },
-    "/users/delete/{id}": {
-      "delete": {
-        "summary": "Delete a user",
-        "description": "Allows authenticated users to delete their own account. Admins can delete any user.",
-        "tags": ["User Management"],
-        "security": [{ "bearerAuth": [] }],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
+      },
+      "/users/delete/{id}": {
+        "delete": {
+          "summary": "Delete a user",
+          "description": "Allows authenticated users to delete their own account. Admins can delete any user.",
+          "tags": ["User Management"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "example": 1
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User deleted successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessResponse"
+                  },
+                  "example": {
+                    "message": "User deleted successfully"
+                  }
+                }
+              }
             },
-            "example": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
+            "403": {
+              "description": "Unauthorized - Permission denied",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  },
+                  "example": {
+                    "error": "Unauthorized"
+                  }
                 }
               }
-            }
-          },
-          "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "409": {
+              "description": "Conflict - Cannot delete user with active dependencies",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  },
+                  "example": {
+                    "error": "User cannot be deleted due to active dependencies"
+                  }
                 }
               }
-            }
-          },
-          "403": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "500": {
+              "description": "Internal Server Error - Unexpected failure",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  },
+                  "example": {
+                    "error": "An unexpected error occurred"
+                  }
                 }
               }
             }

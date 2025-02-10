@@ -1,9 +1,7 @@
 import { EntityManager } from "typeorm";
 import { AuthRepoPort } from "../../application/port/repositories/auth/auth_repo.port";
 import { registerType, user } from "../../domain/models/user";
-import conn from "../config/db";
 import { wrapTransaction } from "../helpers/middleware/transaction";
-import { createUserQuery, getUserByUsernameQuery } from "./sqlQueries";
 import { User } from "../helpers/orm/typeorm/entities/user";
 
 export const authRepo: AuthRepoPort = {
@@ -36,7 +34,6 @@ export const authRepo: AuthRepoPort = {
     role: string,
     entityManager: EntityManager
   ): Promise<void> => {
-    // await conn.execute(createUserQuery, [re, password, role]);
     await entityManager
       .getRepository(User)
       .createQueryBuilder()

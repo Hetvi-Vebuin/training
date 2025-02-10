@@ -10,14 +10,24 @@ export const deleteUserController =
     const tokenData: tokenType = res.locals.user;
     const userIdToDelete = parseInt(req.params.id, 10);
     try {
-      
       await authRepo.wrapTransaction(async (t: EntityManager) => {
         await deleteUserUseCase(userIdToDelete, tokenData, userRepo, t);
       });
 
       res.status(200).send({ message: "Successfully deleted" });
     } catch (error) {
-      console.log("Error deleting user:", error);
+      console.error("Error deleting user:", error);
+
+      if (error.message === "Unauthorized") {
+        return res
+          .status(403)
+          .json({ error: "You are not authorized to delete this user" });
+      }
+
+      if (error.message === "User not found") {
+        return res.status(409).json({ error: "User does not exist" });
+      }
+
       res.status(500).json({ error: "Failed to delete user" });
     }
   };

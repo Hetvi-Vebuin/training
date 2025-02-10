@@ -14,10 +14,7 @@ export const getUserDetailsUseCase = async (
     if (role === "admin") {
       // If isAdmin is true and role is admin, return all user details
       return await userRepo.getDetails(t);
-    } else if (role === "user") {
-      // If isAdmin is true and role is user, return only this user's details
-      return await userRepo.getUserById(userId, t);
-    }
+    } 
   } else {
     return await userRepo.getUserById(userId, t);
   }

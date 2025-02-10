@@ -10,14 +10,21 @@ export const getUserDetailsController =
     const { id, role } = res.locals.user;
     const isAdmin = req.query.isAdmin === "true";
     try {
-      const userData = await authRepo.wrapTransaction(async (t: EntityManager) => {
-        return await getUserDetailsUseCase(id, role, isAdmin, userRepo, t);
-      });
+      const userData = await authRepo.wrapTransaction(
+        async (t: EntityManager) => {
+          return await getUserDetailsUseCase(id, role, isAdmin, userRepo, t);
+        }
+      );
       res
         .status(200)
         .json({ message: "User details retrieved successfully", userData });
-    } catch (error) {
-      console.log("Error getting user details:", error);
+    } catch (error: any) {
+      console.error("Error getting user details:", error);
+
+      if (error.status === 404) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
       res.status(500).json({ error: "Failed to fetch user details" });
     }
   };

@@ -1,5 +1,4 @@
-import { QueryResult, FieldPacket } from "mysql2"
-import { registerType, user } from "../../../../domain/models/user"
+import { user } from "../../../../domain/models/user"
 import { EntityManager } from "typeorm"
 
 export type AuthRepoPort={

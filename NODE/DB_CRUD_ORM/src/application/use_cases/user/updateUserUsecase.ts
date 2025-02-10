@@ -28,5 +28,5 @@ export const updateUserUseCase = async (
     const hashedPassword=await bcrypt.hash(updateData.password, 10);
     updateData.password=hashedPassword;
   }
-  await userRepo.updateUsers(updateData, updateData.id, t);
+  await userRepo.updateUsers(updateData, t);
 };

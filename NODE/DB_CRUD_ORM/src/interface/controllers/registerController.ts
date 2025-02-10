@@ -3,23 +3,25 @@ import { registerUseCase } from "../../application/use_cases/authUser/registerUs
 import { authRepo } from "../../infrastructure/reposiritories/auth.repo";
 import { AuthRepoPort } from "../../application/port/repositories/auth/auth_repo.port";
 import { EntityManager } from "typeorm/entity-manager/EntityManager";
-import { registerType } from "../../domain/models/user";
 
 export const registerController =
   (authRepo: AuthRepoPort) => async (req: Request, res: Response) => {
     try {
       const { email, username, password, role } = req.body;
 
-      // await registerUsecase(username, password, role, authRepo);
-      
       await authRepo.wrapTransaction(async (t: EntityManager) => {
         await registerUseCase(email, username, password, role, authRepo, t);
       });
       res.status(201).json({
         message: "User registered successfully",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error registering user:", error);
+
+      if (error == "Email is already taken") {
+        return res.status(409).json({ message: "Email is already taken" });
+      }
+
       res.status(500).json({ message: "Internal Server Error" });
     }
   };
