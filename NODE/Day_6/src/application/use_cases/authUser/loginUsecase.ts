@@ -10,7 +10,7 @@ export const loginUsecase = async (
 ): Promise<{}> => {
 
   const data = await authRepo.loginDetail(username);
-  console.log(data[0]);
+
   
   const isvalid = await bcrypt.compare(password, data[0].password);
 
