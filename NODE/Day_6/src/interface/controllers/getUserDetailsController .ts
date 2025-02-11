@@ -7,7 +7,7 @@ export const getUserDetailsController = (userRepo:UserRepoPort)=> async (req: Re
     const { id, role } = res.locals.user;
     try {
         const userData = await getUserDetailsUsecase(id, role, userRepo);
-        res.json(userData);
+
     } catch (error) {
         console.log("Error getting user details:",error);
         res.status(500).json({ error: 'Failed to fetch user details' });
