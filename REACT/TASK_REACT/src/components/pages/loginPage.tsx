@@ -1,9 +1,8 @@
-import React from 'react'
-import * as Template from '../templates/loginPage'
- 
+import React from "react";
+import LoginTemplate from "../templates/LoginTemplate";
+
 const LoginPage: React.FC = () => {
-  return <Template.LoginTemplate />
-}
- 
-export { LoginPage }
- 
+  return <LoginTemplate />;
+};
+
+export { LoginPage };

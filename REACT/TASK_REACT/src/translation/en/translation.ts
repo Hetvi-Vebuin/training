@@ -1,5 +1,8 @@
 export const en = {
   translation: {
-    loginText: "Login Page",
+    LOGIN:{
+      LOGIN_TEXT: "Login Page",
+      LOGIN_BUTTON: "Login"
+    }
   },
 };

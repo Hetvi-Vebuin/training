@@ -3,7 +3,7 @@ import { translationLanguage } from "../../util/appConstants/constant";
 import { LanguageDropdown } from "../atoms/LanguageDropDown.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store.ts";
-import { setLanguage } from "../../redux/features/languageReduser.ts";
+import { setLanguage } from "../../redux/features/languageSlice.ts";
 
 export const LanguageSelector = () => {
   const { i18n } = useTranslation();
@@ -20,7 +20,7 @@ export const LanguageSelector = () => {
     <div className="btn-container">
       <LanguageDropdown
         languages={translationLanguage}
-        selectedLanguage={language}
+        value={language}
         onChange={changeLanguage}
       />
     </div>
