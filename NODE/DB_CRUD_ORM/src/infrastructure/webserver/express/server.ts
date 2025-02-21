@@ -1,6 +1,5 @@
 import "reflect-metadata"
 import express from "express";
-import cors from "cors";  
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import options from "../../../../swagger/swagger.json";
@@ -13,18 +12,11 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.use(cors({
-  origin: "http://localhost:5173", // Allow frontend
-  credentials: true, // Allow cookies and headers
-}));
-
 app.use("/api/auth", authRoutes); // Login and register routes
 app.use("/api/users", userRoutes);  // Get details, update details, delete details
 
 // Swagger
 app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(options));
-
-const PORT = 3000;
 
 AppDataSource.initialize()
   .then(() => {
