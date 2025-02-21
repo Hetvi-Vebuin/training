@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
 // import { LoginPage } from './components/pages/LoginPage';
 import AppRoutes from "./routes/AppRoutes";
 import "./translation/i18nConfig";
@@ -7,7 +8,7 @@ import "./translation/i18nConfig";
 function App() {
   return (
     <>
-      {/* <LoginPage /> */}
+      <ToastContainer />
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>

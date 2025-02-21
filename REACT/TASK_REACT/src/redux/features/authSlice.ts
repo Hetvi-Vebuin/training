@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 interface AuthState {
   token: string | null;
 }

@@ -2,7 +2,9 @@ import React from "react";
 import LoginTemplate from "../templates/LoginTemplate";
 
 const LoginPage: React.FC = () => {
-  return <LoginTemplate />;
+  return (<>
+    <LoginTemplate />
+  </>);
 };
 
 export { LoginPage };

@@ -18,7 +18,7 @@ export const registerController =
     } catch (error: any) {
       console.error("Error registering user:", error);
 
-      if (error == "Email is already taken") {
+      if (error = "Email is already taken") {
         return res.status(409).json({ message: "Email is already taken" });
       }
 

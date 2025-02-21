@@ -1,28 +1,60 @@
 import React from "react";
 import { RegisterForm } from "../molecules/RegisterForm";
-import { LanguageSelector } from "../molecules/LanguageSelector";
 import API from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { URLConstant } from "../../util/appConstants/constant";
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleRegister = async (
     username: string,
     email: string,
     password: string,
-    confirmPassword: string,
     role: string
   ) => {
-    console.log("Registering:", username, email, role);
-    // API
-    
-    const response = await API.post("/api/auth/register", { email, password, })
+    console.log("Registering:", username, email, password, role);
+    try {
+      const response = await API.post(`/${URLConstant.AUTH}/${URLConstant.REGISTER}`, {
+        email,
+        username,
+        password,
+        role,
+      });
+
+      console.log("Response:", response);
+
+      if (response.status === 201) {
+        toast.success("Registration successful!", {
+          position: "top-right",
+          autoClose: 2000,
+          closeButton: false,
+        });
+
+        // Redirect user after successful registration
+        navigate("/");
+      }
+    } catch (error: any) {
+      console.error("Registration failed:", error);
+
+      toast.error(
+        error.response?.data?.message ||
+          "Registration failed. Please try again.",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          closeButton: false, // Removes the close button
+        }
+      );
+    }
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-4 rounded shadow">
-      <h2 className="text-xl font-bold mb-4">register</h2>
-      <LanguageSelector />
+    <div>
       <RegisterForm onSubmit={handleRegister} />
     </div>
   );
 };
+
 export default Register;

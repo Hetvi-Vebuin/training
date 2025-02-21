@@ -24,7 +24,7 @@ app.use("/api/users", userRoutes);  // Get details, update details, delete detai
 // Swagger
 app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(options));
 
-const PORT = 5000;
+const PORT = 3000;
 
 AppDataSource.initialize()
   .then(() => {

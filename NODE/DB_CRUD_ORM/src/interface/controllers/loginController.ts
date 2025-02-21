@@ -23,11 +23,11 @@ export const loginController =
     } catch (error: any) {
       console.error("Error logging in:", error);
 
-      if (error == "Email not found") {
-        return res.status(404).json({ message: "Email not found" });
+      if (error = "Email or Password incorrect") {
+        return res.status(404).json({ message: "Email or Password incorrect" });
       }
 
-      if (error == "Invalid password") {
+      if (error = "Invalid password") {
         return res.status(401).json({ message: "Invalid password" });
       }
 

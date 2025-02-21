@@ -3,7 +3,7 @@ import Login from "../organisms/Login";
 
 const LoginTemplate: React.FC = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div>
       <Login />
     </div>
   );

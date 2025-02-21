@@ -12,7 +12,7 @@ export const loginUseCase = async (
 ): Promise<{}> => {
   const data = await authRepo.loginDetail(email, t);
   if (!data) {
-    const error = new Error("Email not found");
+    const error = new Error("Email or Password incorrect");
     throw error;
   }
 
