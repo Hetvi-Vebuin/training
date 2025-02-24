@@ -36,7 +36,7 @@ const Login: React.FC = () => {
         {
           position: "top-right",
           autoClose: 2000,
-          closeButton: false, // Removes the close button
+          closeButton: false, 
         }
       );
     }
@@ -44,7 +44,6 @@ const Login: React.FC = () => {
 
   return (
     <div>
-      {/* <LanguageSelector /> */}
       <LoginForm onSubmit={handleLogin} />
     </div>
   );

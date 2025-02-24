@@ -22,7 +22,6 @@ const useGetDetails = () => {
               params: { isAdmin: "true" }, // Ensures we get all users
             }
           );
-          // console.log("data:",response.data.userData);
 
           setUsers(response.data.userData);
         }

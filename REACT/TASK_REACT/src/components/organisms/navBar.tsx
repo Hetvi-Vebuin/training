@@ -14,9 +14,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  // if (loading) return <p>Loading...</p>;
-
+  
   const logoutPage = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     dispatch(logout());

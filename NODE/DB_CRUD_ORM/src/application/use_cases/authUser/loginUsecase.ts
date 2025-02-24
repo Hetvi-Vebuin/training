@@ -23,11 +23,11 @@ export const loginUseCase = async (
     throw error;
   }
   const token = jwt.sign(
-  { id: data.id, role: data.role },
-  process.env.JWT_SECRET ?? "EMP0375",
-  {
-    expiresIn: "1h",
-  }
+    { id: data.id, role: data.role },
+    process.env.JWT_SECRET ?? "EMP0375",
+    {
+      expiresIn: "1h",
+    }
   );
   return { token };
 };
