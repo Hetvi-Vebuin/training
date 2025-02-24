@@ -9,13 +9,13 @@ import LanguageSelector from "../molecules/LanguageSelector";
 import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
-  const { user, clearUser, loading } = useUser();
+  const { user, clearUser } = useUser();
   const { token } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
 
   const logoutPage = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

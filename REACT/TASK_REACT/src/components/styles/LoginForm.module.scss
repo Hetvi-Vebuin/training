@@ -15,7 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(22, 21, 21);
+  background-color: white;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -28,7 +28,7 @@ body {
   border-radius: 6px;
   padding: 41px 30px;
   position: relative;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 // Form Title
@@ -36,42 +36,6 @@ body {
   font-size: 20px;
   text-align: center;
   font-weight: bold;
-}
-
-// Social Login Options
-.login_option {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.option {
-  width: calc(50% - 12px);
-}
-
-.option a {
-  height: 56px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  background: #f8f8fb;
-  border: 1px solid #dadaf2;
-  border-radius: 5px;
-  margin: 34px 0 24px 0;
-  text-decoration: none;
-  color: #171645;
-  font-weight: 500;
-  transition: 0.2s ease;
-}
-
-.option a:hover {
-  background: #ededf5;
-}
-
-.option a img {
-  max-width: 25px;
 }
 
 // Form Fields
@@ -131,15 +95,17 @@ button:hover {
 .sign_up {
   text-align: center;
   font-size: 14px;
+  text-decoration: none;
 }
 
-a {
+.sign_up_link{
+  color: #4954d0;
   text-decoration: none;
-  // color: #626cd6;
-  font-weight: 500;
   font-size: 15px;
 }
 
-a:hover {
-  text-decoration: underline;
+.error{
+  color: red;
+  margin-bottom: 10px;
+  margin-top: -15px;
 }

@@ -3,7 +3,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 // Body Styling
@@ -35,41 +36,6 @@ h3 {
   font-weight: bold;
 }
 
-.register_option {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.option {
-  width: calc(50% - 12px);
-}
-
-.option a {
-  height: 56px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  background: #F8F8FB;
-  border: 1px solid #DADAF2;
-  border-radius: 5px;
-  margin: 34px 0 24px 0;
-  text-decoration: none;
-  color: #171645;
-  font-weight: 500;
-  transition: 0.2s ease;
-}
-
-.option a:hover {
-  background: #ededf5;
-}
-
-.option a img {
-  max-width: 25px;
-}
-
 p {
   text-align: center;
   font-weight: 500;
@@ -91,10 +57,10 @@ label {
 .input_box select {
   width: 100%;
   height: 57px;
-  border: 1px solid #DADAF2;
+  border: 1px solid #dadaf2;
   border-radius: 5px;
   outline: none;
-  background: #F8F8FB;
+  background: #f8f8fb;
   font-size: 14px;
   padding: 0px 20px;
   margin-bottom: 25px;
@@ -118,14 +84,14 @@ select:focus {
   position: relative;
 }
 
-a {
+.login_link {
   text-decoration: none;
-  // color: #626cd6;
-  font-weight: 500;
+  color: #4954d0;
+  font-size: 15px;
   font-size: 15px;
 }
 
-a:hover {
+.loginLink:hover {
   text-decoration: underline;
 }
 
@@ -135,7 +101,7 @@ form button {
   border-radius: 5px;
   border: none;
   outline: none;
-  background: #626CD6;
+  background: #626cd6;
   color: #fff;
   font-size: 15px;
   font-weight: 500;
@@ -149,10 +115,16 @@ button:hover {
   background: #4954d0;
 }
 
-.sign_up {
+.signUp {
   font-size: 14px;
 }
 
 input.remember {
   width: 10px;
+}
+
+.error{
+  color: red;
+  margin-bottom: 10px;
+  margin-top: -15px;
 }

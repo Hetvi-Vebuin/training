@@ -32,7 +32,6 @@ const Register: React.FC = () => {
           closeButton: false,
         });
 
-        // Redirect user after successful registration
         navigate("/");
       }
     } catch (error: any) {
@@ -44,7 +43,7 @@ const Register: React.FC = () => {
         {
           position: "top-right",
           autoClose: 2000,
-          closeButton: false, // Removes the close button
+          closeButton: false, 
         }
       );
     }

@@ -46,7 +46,8 @@ export const hi = {
       LOADING:"लोड हो रहा है...",
       USERNAME:"उपयोक्तानाम",
       EMAIL:"ईमेल",
-      ROLE:"भूमिका"
+      ROLE:"भूमिका",
+      NOUSERDETAILSAVAILABEL:"उपयोगकर्ता विवरण उपलब्ध नहीं है"
     }
   },
 };

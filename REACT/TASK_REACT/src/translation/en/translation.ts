@@ -46,7 +46,8 @@ export const en = {
       LOADING:"Loading...",
       USERNAME:"USERNAME",
       EMAIL:"EMAIL",
-      ROLE:"ROLE"
+      ROLE:"ROLE",
+      NOUSERDETAILSAVAILABEL:"User Details is not available"
     }
   },
 };

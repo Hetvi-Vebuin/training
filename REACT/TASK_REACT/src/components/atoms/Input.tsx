@@ -4,24 +4,21 @@ interface InputProps {
   type: string;
   name: string;
   placeholder?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  registerProps: any
 }
 
 const Input: React.FC<InputProps> = ({
   type,
   name,
   placeholder,
-  value,
-  onChange,
+  registerProps,
 }) => {
   return (
     <input
       type={type}
       name={name}
       placeholder={placeholder}
-      value={value}
-      onChange={onChange}
+      {...registerProps}
       className="border p-2 rounded w-full"
     />
   );

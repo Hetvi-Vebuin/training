@@ -17,7 +17,7 @@ const Login: React.FC = () => {
     try {
       const response = await API.post(`/${URLConstant.AUTH}/${URLConstant.LOGIN}`, { email, password });
 
-      if (response.status === 200) {
+      if (response.status === 200) {        
         const token = response.data.data.token;
         dispatch(loginSuccess(token));
         toast.success("Login successful!", {
