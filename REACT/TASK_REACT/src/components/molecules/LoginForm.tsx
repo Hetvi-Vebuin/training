@@ -1,4 +1,3 @@
-import React from "react";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 import { useTranslation } from "react-i18next";
@@ -6,7 +5,7 @@ import style from "../styles/LoginForm.module.scss";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { loginSchema } from "../../data/schemas/loginSchema";
+import { loginSchema } from "../../data/schemas/LoginSchema";
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => void;

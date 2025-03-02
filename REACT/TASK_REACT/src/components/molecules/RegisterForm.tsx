@@ -1,4 +1,3 @@
-import React from "react";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 import { useForm } from "react-hook-form";
@@ -6,8 +5,8 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { useTranslation } from "react-i18next";
 import styles from "../styles/RegisterForm.module.scss";
 import { NavLink } from "react-router-dom";
-import { RegisterFormProps } from "../../data/model/type/user";
-import { registerSchema } from "../../data/schemas/registerSchema";
+import { RegisterFormProps } from "../../data/model/type/User";
+import { registerSchema } from "../../data/schemas/RegisterSchema";
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
   const {
@@ -19,10 +18,11 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
   });
   
   const { t } = useTranslation();
-
+  console.log("ddd",);
+  
   return (
     <form
-      onSubmit={handleSubmit((data) =>
+      onSubmit={handleSubmit((data) =>        
         onSubmit(data.username, data.email, data.password, data.role)
       )}
       className={styles.register_form}
@@ -70,10 +70,13 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 
       <div className={styles.input_box}>
         <label>{t("REGISTER.ROLE")}</label>
-        <select>
+        <select {...register("role")}>
           <option value="user">{t("REGISTER.USER_ROLE")}</option>
           <option value="admin">{t("REGISTER.ADMIN_ROLE")}</option>
         </select>
+        {errors.role?.message && (
+          <p className={styles.error}>{String(errors.role.message)}</p>
+        )}
       </div>
 
       <Button type="submit" text={t("REGISTER.BUTTON")} />

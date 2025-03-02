@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/NavBar.module.scss"; // Import SCSS
 import { useUser } from "../../context/UserContext";
 import { useAuth } from "../../hooks/useAuth";
-import { logout } from "../../redux/features/authSlice";
+import { logout } from "../../redux/features/AuthSlice";
 import { useDispatch } from "react-redux";
 import LanguageSelector from "../molecules/LanguageSelector";
 import { useTranslation } from "react-i18next";
@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
   }
   return (
     <nav className={styles.navbar}>
-      <img src="/src/assets/vite.svg" onClick={handleClick}/>
+      <img src="src/assets/vite.svg" onClick={handleClick}/>
       {token && (
         <>
           <Link to="/dashboard" className={styles["nav-left"]}>

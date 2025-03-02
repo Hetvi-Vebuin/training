@@ -1,0 +1,47 @@
+.profileContainer {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  max-height: 500px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+global {
+  margin: 20px;
+}
+
+.profileTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.profileTable th,
+.profileTable td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.profileTable th {
+  background: #f5f5f5;
+}
+
+.profileButton {
+  margin: 60px;
+  padding: 10px 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.profileButton:hover {
+  background: #0056b3;
+}/*# sourceMappingURL=Profile.module.css.map */

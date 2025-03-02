@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { translationLanguage } from "../../util/appConstants/constant";
-import { LanguageDropdown } from "../atoms/LanguageDropDown.tsx";
+import { LanguageDropdown } from "../atoms/LanguageDropDown";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store/store.ts";
-import { setLanguage } from "../../redux/features/languageSlice.ts";
+import { RootState } from "../../redux/store/Store";
+import { setLanguage } from "../../redux/features/LanguageSlice";
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();

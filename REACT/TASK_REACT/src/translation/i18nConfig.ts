@@ -1,20 +1,19 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-import { en } from "./en/translation";
-import { hi } from "./hi/translation";
-import storage from "redux-persist/lib/storage";
+import { en } from "./en/Translation";
+import { hi } from "./hi/Translation";
 
-const storedData = await storage.getItem("persist:lng");
-let lang;
-if (storedData) {
-  const parsedData = JSON.parse(storedData);
-  lang = JSON.parse(parsedData.lng);
-} else {
-  lang = "en";
+const currentLanguageFromLocalstorage = JSON.parse(
+  localStorage.getItem("persist:lng") as string
+);
+let currentLanguage;
+if (currentLanguageFromLocalstorage) {
+   currentLanguage = JSON.parse(
+    currentLanguageFromLocalstorage.lng
+  );
 }
-
 i18next.use(initReactI18next).init({
-  lng: lang,
+  lng: currentLanguage,
   fallbackLng: "en",
   // debug:true,
   // returnObject:true,

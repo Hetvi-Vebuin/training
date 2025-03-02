@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import API from "../services/api"; 
+import API from "../services/Api"; 
 import { URLConstant } from "../util/appConstants/constant";
 import { useAuth } from "../hooks/useAuth";
 interface User {
@@ -28,7 +28,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       // user details
       setLoading(true);
-
+      
       const response = await API.get(`/${URLConstant.USER}/${URLConstant.DETAILS}`);
       setUser(response.data.userData);
 
@@ -55,7 +55,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useUser = () => {
   const context = useContext(UserContext);
-  console.log("context:",context);
   
   if (!context) {
     throw new Error("useUser must be used within a UserProvider");

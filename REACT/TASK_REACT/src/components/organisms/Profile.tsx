@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useUser } from "../../context/UserContext";
 import styles from "../styles/Profile.module.scss";
+// import styles from ;
 const Profile = () => {
   const { user, loading } = useUser();
   const {t}=useTranslation();

@@ -1,8 +1,8 @@
 import React from "react";
 import { LoginForm } from "../molecules/LoginForm";
-import API from "../../services/api";
+import API from "../../services/Api";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../../redux/features/authSlice";
+import { loginSuccess } from "../../redux/features/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { URLConstant } from "../../util/appConstants/constant";

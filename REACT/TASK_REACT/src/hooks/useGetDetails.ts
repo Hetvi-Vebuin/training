@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import API from "../services/api";
+import API from "../services/Api";
 import { URLConstant } from "../util/appConstants/constant";
-import { User } from "../data/model/type/user";
+import { User } from "../data/model/type/User";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 

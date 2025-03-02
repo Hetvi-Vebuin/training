@@ -1,6 +1,6 @@
 import React from "react";
 import { RegisterForm } from "../molecules/RegisterForm";
-import API from "../../services/api";
+import API from "../../services/Api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { URLConstant } from "../../util/appConstants/constant";

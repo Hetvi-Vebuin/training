@@ -1,20 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import languageSlice from "../features/languageSlice";
+import languageSlice from "../features/LanguageSlice";
 import logger from "redux-logger";
 import storage from "redux-persist/lib/storage";
-import authReducer from "../features/authSlice"
+import authReducer from "../features/AuthSlice"
 import { persistReducer, persistStore } from "redux-persist";
-import hardSet from "redux-persist/es/stateReconciler/hardSet";
 
 const persistConfig = {
   key: "lng",
   storage,
-  stateReconciler:hardSet
 };
 const tokenConfig = {
   key: "token",
   storage,
-  stateReconciler:hardSet
 };
 const persistedReducer = persistReducer(persistConfig, languageSlice);
 const persistedToken = persistReducer(tokenConfig, authReducer);
@@ -22,7 +19,7 @@ const persistedToken = persistReducer(tokenConfig, authReducer);
 const store = configureStore({
   reducer: {
     language: persistedReducer,
-    auth: persistedToken
+    auth: persistedToken,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
