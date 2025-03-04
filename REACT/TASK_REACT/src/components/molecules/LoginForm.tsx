@@ -1,7 +1,7 @@
+import style from "../styles/LoginForm.module.scss";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 import { useTranslation } from "react-i18next";
-import style from "../styles/LoginForm.module.scss";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";

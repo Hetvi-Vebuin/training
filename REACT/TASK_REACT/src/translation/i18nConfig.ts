@@ -22,3 +22,5 @@ i18next.use(initReactI18next).init({
     hi: hi,
   },
 });
+
+export default i18next;
