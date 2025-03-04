@@ -1,0 +1,33 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  node-api:
+    build:
+      context: "C:/Users/Admin/OneDrive - VeBuIn/Documents/Internship Tasks/NODE/DB_CRUD_ORM"
+    container_name: node-api
+    restart: always
+    depends_on:
+      - mysql-db
+    environment:
+      DB_HOST: mysql-db
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: testdb
+    ports:
+      - "3000:3000"
+    volumes:
+      - "C:/Users/Admin/OneDrive - VeBuIn/Documents/Internship Tasks/NODE/DB_CRUD_ORM:/app"
+    command: ["npm", "run", "dev"]
+    
+volumes:
+  mysql_data:

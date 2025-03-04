@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { loginUseCase } from "../../application/use_cases/authUser/loginUsecase";
+import { loginUseCase } from "../../application/use_cases/authUser/loginUseCase";
 import { AuthRepoPort } from "../../application/port/repositories/auth/auth_repo.port";
 import { EntityManager } from "typeorm/entity-manager/EntityManager";
-import { wrapTransaction } from "../../infrastructure/helpers/middleware/transaction";
 
 export const loginController =
   (authRepo: AuthRepoPort) => async (req: Request, res: Response) => {
@@ -23,10 +22,10 @@ export const loginController =
     } catch (error: any) {
       console.error("Error logging in:", error);
 
-      if ((error = "Email or Password incorrect")) {
-        return res.status(404).json({ message: "Email or Password incorrect" });
+      if ((error.message === "User Not Found")) {
+        return res.status(404).json({ message: "User Not Found" });
       }
-      else if ((error = "Invalid password")) {
+      else if ((error.message === "Invalid password")) {
         return res.status(401).json({ message: "Invalid password" });
       }
       else{

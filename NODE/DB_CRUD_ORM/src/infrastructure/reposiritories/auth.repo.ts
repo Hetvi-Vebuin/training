@@ -11,7 +11,7 @@ export const authRepo: AuthRepoPort = {
   loginDetail:async (
     email,
     entityManager: EntityManager
-  ): Promise<user> => {
+  ): Promise<user| null> => {
     const data = await entityManager
       .createQueryBuilder()
       .select([
@@ -50,7 +50,7 @@ export const authRepo: AuthRepoPort = {
   getDetailByEmail: async (
     email,
     entityManager: EntityManager
-  ): Promise<user> => {
+  ): Promise<user|null> => {
     const data = await entityManager
       .createQueryBuilder()
       .select([

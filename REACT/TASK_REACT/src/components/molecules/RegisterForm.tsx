@@ -18,7 +18,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
   });
   
   const { t } = useTranslation();
-  console.log("ddd",);
   
   return (
     <form

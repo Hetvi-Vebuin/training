@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserDetailsController } from '../controllers/getUserDetailsController ';
+import { getUserDetailsController } from '../controllers/getUserDetailsController';
 import { updateUserController } from '../controllers/updateUserController';
 import { deleteUserController } from '../controllers/deleteUserController';
 import { authMiddleware } from '../../infrastructure/helpers/middleware/auth';

@@ -11,7 +11,6 @@ export const authMiddleware = (
     res.status(401).json({ error: "Access denied" });
     return;
   }
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "EMP0375");
     res.locals.user = decoded;

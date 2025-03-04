@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { deleteUserUseCase } from "../../application/use_cases/user/deleteUserUsecase";
+import { deleteUserUseCase } from "../../application/use_cases/user/deleteUserUseCase";
 import { UserRepoPort } from "../../application/port/repositories/user/user_repo.port";
 import { tokenType } from "../../domain/models/user";
 import { authRepo } from "../../infrastructure/reposiritories/auth.repo";
@@ -15,8 +15,8 @@ export const deleteUserController =
       });
 
       res.status(200).send({ message: "Successfully deleted" });
-    } catch (error) {
-      console.error("Error deleting user:", error);
+    } catch (error:any) {
+      console.log("Error deleting user:", error);
 
       if (error.message === "Unauthorized") {
         return res
