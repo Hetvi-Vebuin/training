@@ -8,7 +8,7 @@ import { RegisterForm } from "./RegisterForm";
 import { RegisterFormProps } from "../../data/model/type/User";
 
 export default {
-  title: "Components/RegisterForm",
+  title: "Molecules/RegisterForm",
   component: RegisterForm,
   tags: ["autodocs"],
   decorators: [
