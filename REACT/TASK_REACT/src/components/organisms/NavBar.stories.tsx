@@ -1,56 +1,177 @@
-import { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
+import Navbar from "./NavBar";
 import { Provider } from "react-redux";
-import { I18nextProvider } from "react-i18next";
-import { MemoryRouter } from "react-router-dom"; // Needed for Link
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "../../redux/features/AuthSlice";
 import i18n from "../../translation/I18nConfig";
-import store from "../../redux/store/Store";
-import Navbar from "../organisms/NavBar";
+import { I18nextProvider } from "react-i18next";
+import { BrowserRouter } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
+import languageSlice, { setLanguage } from "../../redux/features/LanguageSlice";
 
-// 👇 Mock the `useAuth()` hook
-jest.mock("../../hooks/useAuth", () => ({
-  useAuth: () => ({
-    user: mockUser, // This will be updated per story
-    loading: false,
-    fetchUser: jest.fn(),
-    clearUser: jest.fn(),
-  }),
-}));
+const createTestStore = (initialState: {
+  auth: { token: string | null };
+  language: { lng: string };
+}) =>
+  configureStore({
+    reducer: {
+      language: languageSlice,
+      auth: authReducer,
+    },
+    preloadedState: initialState,
+  });
 
-export default {
-  title: "Components/Navbar",
+const meta: Meta<typeof Navbar> = {
   component: Navbar,
   decorators: [
-    (Story, context) => {
+    (Story) => {
+      const store = createTestStore({
+        auth: { token: null },
+        language: { lng: "en" },
+      });
+
       return (
         <Provider store={store}>
-          <I18nextProvider i18n={i18n}>
-            <MemoryRouter>
-              <Story />
-            </MemoryRouter>
-          </I18nextProvider>
+          <Story />
         </Provider>
       );
     },
   ],
-} as Meta;
-
-// Template for Navbar
-const Template: StoryFn = () => <Navbar />;
-
-// Navbar for Logged-Out User (No Token)
-export const LoggedOut = Template.bind({});
-LoggedOut.args = {
-  user: null,
+  tags: ["autodocs"],
 };
 
-// Navbar for Logged-In Regular User
-export const LoggedInUser = Template.bind({});
-LoggedInUser.args = {
-  user: { username: "JohnDoe", role: "user" },
+export default meta;
+type Story = StoryObj<typeof Navbar>;
+
+export const Default: Story = {
+  decorators: [
+    (Story) => {
+      const store = createTestStore({
+        auth: { token: null },
+        language: { lng: "en" },
+      });
+
+      return (
+        <BrowserRouter>
+          <Provider store={store}>
+            <I18nextProvider i18n={i18n}>
+              <UserContext.Provider
+                value={{
+                  user: null,
+                  clearUser: () => {},
+                  loading: false,
+                  fetchUser: () => {},
+                }}
+              >
+                <Story />
+              </UserContext.Provider>
+            </I18nextProvider>
+          </Provider>
+        </BrowserRouter>
+      );
+    },
+  ],
 };
 
-// Navbar for Logged-In Admin
-export const LoggedInAdmin = Template.bind({});
-LoggedInAdmin.args = {
-  user: { username: "AdminUser", role: "admin" },
+export const LoggedIn: Story = {
+  decorators: [
+    (Story) => {
+      const store = createTestStore({
+        auth: { token: "mockAccessToken" },
+        language: { lng: "en" },
+      });
+      const mockUser = {
+        id: 1,
+        username: "JohnDoe",
+        email: "johndoe@example.com",
+        role: "admin" as "admin",
+      };
+      return (
+        <BrowserRouter>
+          <Provider store={store}>
+            <I18nextProvider i18n={i18n}>
+              <UserContext.Provider
+                value={{
+                  user: mockUser,
+                  clearUser: () => {},
+                  loading: false,
+                  fetchUser: () => {},
+                }}
+              >
+                <Story />
+              </UserContext.Provider>
+            </I18nextProvider>
+          </Provider>
+        </BrowserRouter>
+      );
+    },
+  ],
+};
+
+export const LanguageChange: Story = {
+  decorators: [
+    (Story) => {
+      const store = createTestStore({
+        auth: { token: "mockAccessToken" },
+        language: { lng: "en" },
+      });
+      const mockUser = {
+        id: 1,
+        username: "JohnDoe",
+        email: "johndoe@example.com",
+        role: "admin" as "admin",
+      };
+
+      store.dispatch(setLanguage("hi"));
+
+      return (
+        <BrowserRouter>
+          <Provider store={store}>
+            <I18nextProvider i18n={i18n}>
+              <UserContext.Provider
+                value={{
+                  user: mockUser,
+                  clearUser: () => {},
+                  loading: false,
+                  fetchUser: () => {},
+                }}
+              >
+                <Story />
+              </UserContext.Provider>
+            </I18nextProvider>
+          </Provider>
+        </BrowserRouter>
+      );
+    },
+  ],
+};
+
+export const NoUserRedirect: Story = {
+  decorators: [
+    (Story) => {
+      const store = createTestStore({
+        auth: { token: null },
+        language: { lng: "en" },
+      });
+
+      return (
+        <BrowserRouter>
+          <Provider store={store}>
+            <I18nextProvider i18n={i18n}>
+              <UserContext.Provider
+                value={{
+                  user: null,
+                  clearUser: () => {},
+                  loading: false,
+                  fetchUser: () => {},
+                }}
+              >
+                <Story />
+              </UserContext.Provider>
+            </I18nextProvider>
+          </Provider>
+        </BrowserRouter>
+      );
+    },
+  ],
 };

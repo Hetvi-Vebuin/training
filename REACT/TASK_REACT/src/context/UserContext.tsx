@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import API from "../services/Api"; 
 import { URLConstant } from "../util/appConstants/constant";
 import { useAuth } from "../hooks/useAuth";
+
 interface User {
   id: number;
   username: string;
@@ -16,9 +17,13 @@ interface UserContextType {
   fetchUser: ()=> void
 }
 
+interface UserProviderProps {
+  children: ReactNode;
+}
+
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+export const UserProvider:React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const clearUser = () => setUser(null);
@@ -47,7 +52,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   }, [auth]);
 
   return (
-    <UserContext.Provider value={{ user, clearUser, loading, fetchUser }}>
+    <UserContext.Provider value={{ user, clearUser, loading, fetchUser }} >
       {children}
     </UserContext.Provider>
   );
